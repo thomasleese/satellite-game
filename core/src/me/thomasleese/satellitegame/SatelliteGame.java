@@ -19,18 +19,14 @@ public class SatelliteGame extends ApplicationAdapter {
     private Model mSkySphereModel;
     private ModelInstance mSkySphereModelInstance;
 
-    private Planet mSun;
-    private Planet mEarth;
-    private Planet mMoon;
-    private Satellite mSatellite1;
-    private Satellite mSatellite2;
+    private SolarSystem mSolarSystem;
 
     @Override
     public void create() {
         mModelBatch = new ModelBatch();
 
         mCamera = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        mCamera.position.set(0f, 0f, 0f);
+        mCamera.position.set(0f, 30f, 0f);
         mCamera.lookAt(0, 0, 0);
         mCamera.near = 1f;
         mCamera.far = 300f;
@@ -49,11 +45,7 @@ public class SatelliteGame extends ApplicationAdapter {
 
         mSkySphereModelInstance = new ModelInstance(mSkySphereModel);
 
-        mSun = new Planet(null, 0, 0, 3f, 0.408407f, 0.1f, "textures/sunmap.jpg");
-        mEarth = new Planet(mSun, 18, 0.5f, 2f, 0.408407f, 0.1f, "textures/earthmap.jpg");
-        mMoon = new Planet(mEarth, 4, 1f, 0.5f, 0.4f, 0.1f, "textures/moonmap.jpg");
-        mSatellite1 = new Satellite(mEarth, 3f);
-        mSatellite2 = new Satellite(mEarth, 3f);
+        mSolarSystem = new SolarSystem();
     }
 
     @Override
@@ -63,34 +55,20 @@ public class SatelliteGame extends ApplicationAdapter {
 
         float dt = Gdx.graphics.getDeltaTime();
 
-        mSun.step(dt);
-        mEarth.step(dt);
-        mMoon.step(dt);
-        mSatellite1.step(dt);
-        mSatellite2.step(dt);
+        mSolarSystem.step(dt);
 
-        mEarth.focusCamera(mCamera);
+        //mEarth.focusCamera(mCamera);
 
         mModelBatch.begin(mCamera);
         mModelBatch.render(mSkySphereModelInstance, mEnvironment);
-
-        mSun.render(mModelBatch, mEnvironment);
-        mEarth.render(mModelBatch, mEnvironment);
-        mMoon.render(mModelBatch, mEnvironment);
-        mSatellite1.render(mModelBatch, mEnvironment);
-        mSatellite2.render(mModelBatch, mEnvironment);
-
+        mSolarSystem.render(mModelBatch, mEnvironment);
         mModelBatch.end();
     }
 
     @Override
     public void dispose() {
-        mSun.dispose();
-        mEarth.dispose();
-        mMoon.dispose();
         mSkySphereModel.dispose();
-        mSatellite1.dispose();
-        mSatellite2.dispose();
+        mSolarSystem.dispose();
     }
 
 }

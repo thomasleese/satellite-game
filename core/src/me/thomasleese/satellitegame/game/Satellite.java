@@ -24,10 +24,12 @@ public class Satellite extends Body {
         mInstance = new ModelInstance(mModel);
     }
 
+    @Override
     public void dispose() {
         mModel.dispose();
     }
 
+    @Override
     public void render(ModelBatch modelBatch, Environment environment) {
         modelBatch.render(mInstance, environment);
     }

@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.g3d.attributes.*;
 import com.badlogic.gdx.graphics.g3d.environment.*;
 import com.badlogic.gdx.graphics.g3d.utils.*;
 import com.badlogic.gdx.math.*;
+import com.badlogic.gdx.utils.*;
 
-public class Body {
+public abstract class Body implements Disposable {
 
     private Body mPrimary;
 
@@ -47,5 +48,7 @@ public class Body {
             mPosition.z = primaryPosition.z + mAltitude * MathUtils.sin(mTheta);
         }
     }
+
+    public abstract void render(ModelBatch modelBatch, Environment environment);
 
 }

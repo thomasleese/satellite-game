@@ -49,10 +49,12 @@ public class Planet extends Body {
         //mInstance.transform.setToRotationRad(0, 0, 1, mObliquity); //.rotateRad(0, 1, 0, mRotation);
     }
 
+    @Override
     public void dispose() {
         mModel.dispose();
     }
 
+    @Override
     public void render(ModelBatch modelBatch, Environment environment) {
         modelBatch.render(mInstance, environment);
     }
