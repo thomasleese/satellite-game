@@ -1,0 +1,4 @@
+android/assets/textures/earthmap.jpg filter=lfs diff=lfs merge=lfs -text
+android/assets/textures/moonmap.jpg filter=lfs diff=lfs merge=lfs -text
+android/assets/textures/starmap.jpg filter=lfs diff=lfs merge=lfs -text
+android/assets/textures/sunmap.jpg filter=lfs diff=lfs merge=lfs -text
