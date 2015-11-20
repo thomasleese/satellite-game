@@ -10,26 +10,22 @@ import com.badlogic.gdx.math.*;
 
 public class Planet extends Body {
 
-    private float mRadius;
-    private float mObliquity;
-    private float mRotationalSpeed;
+    private static final String TAG = "Planet";
 
-    private float mRotation;
+    private float mRadius;
 
     private Model mModel;
     private ModelInstance mInstance;
 
-    public Planet(Body primary, float altitude, float speed, float radius, float obliquity, float rotationalSpeed, String textureName) {
-        super(primary, altitude, speed);
+    public Planet(Planet primary, float radius, float meanDistanceFromPrimary, String textureName) {
+        super(primary, meanDistanceFromPrimary, 1f);
+
+        Gdx.app.debug(TAG, "Created with radius = " + radius + " and altitude = " + meanDistanceFromPrimary);
 
         mRadius = radius;
-        mObliquity = obliquity;
-        mRotationalSpeed = rotationalSpeed;
-
-        mRotation = 0;
 
         Texture diffuse = new Texture(textureName);
-        Material material = new Material(TextureAttribute.createDiffuse(diffuse));
+        Material material = new Material(TextureAttribute.createDiffuse(diffuse), new ColorAttribute(ColorAttribute.Emissive));
 
         float diameter = radius * 2f;
 
@@ -40,16 +36,6 @@ public class Planet extends Body {
     }
 
     @Override
-    public void step(float dt) {
-        super.step(dt);
-
-        mRotation += dt * mRotationalSpeed;
-
-        mInstance.transform.setTranslation(mPosition);
-        //mInstance.transform.setToRotationRad(0, 0, 1, mObliquity); //.rotateRad(0, 1, 0, mRotation);
-    }
-
-    @Override
     public void dispose() {
         mModel.dispose();
     }
@@ -57,6 +43,13 @@ public class Planet extends Body {
     @Override
     public void render(ModelBatch modelBatch, Environment environment) {
         modelBatch.render(mInstance, environment);
+    }
+
+    @Override
+    public void step(float dt) {
+        super.step(dt);
+
+        mInstance.transform.setTranslation(mPosition);
     }
 
 }

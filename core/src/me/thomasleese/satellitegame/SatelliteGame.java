@@ -23,25 +23,27 @@ public class SatelliteGame extends ApplicationAdapter {
 
     @Override
     public void create() {
+        Gdx.app.setLogLevel(Application.LOG_DEBUG);
+
         mModelBatch = new ModelBatch();
 
         mCamera = new PerspectiveCamera(67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        mCamera.position.set(0f, 30f, 0f);
+        mCamera.position.set(200f, 0f, 0f);
         mCamera.lookAt(0, 0, 0);
         mCamera.near = 1f;
-        mCamera.far = 300f;
+        mCamera.far = 6000f;
         mCamera.update();
 
         mEnvironment = new Environment();
-        mEnvironment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.2f, 0.2f, 0.2f, 0.1f));
+        mEnvironment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.05f, 0.05f, 0.05f, 1f));
         //mEnvironment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
-        mEnvironment.add(new PointLight().set(0.9f, 0.9f, 0.9f, 0f, 0f, 0f, 500f));
+        mEnvironment.add(new PointLight().set(0.9f, 0.9f, 0.9f, 0f, 0f, 0f, 2000f));
 
         Texture skySphereTexture = new Texture("textures/starmap.jpg");
         Material skySphereMaterial = new Material(TextureAttribute.createDiffuse(skySphereTexture));
         ModelBuilder modelBuilder = new ModelBuilder();
         skySphereMaterial.set(new IntAttribute(IntAttribute.CullFace, 0));
-        mSkySphereModel = modelBuilder.createSphere(250f, 250f, 250f, 64, 64, skySphereMaterial, VertexAttributes.Usage.Position | VertexAttributes.Usage.TextureCoordinates);
+        mSkySphereModel = modelBuilder.createSphere(5000f, 5000f, 5000f, 64, 64, skySphereMaterial, VertexAttributes.Usage.Position | VertexAttributes.Usage.TextureCoordinates);
 
         mSkySphereModelInstance = new ModelInstance(mSkySphereModel);
 
@@ -56,8 +58,7 @@ public class SatelliteGame extends ApplicationAdapter {
         float dt = Gdx.graphics.getDeltaTime();
 
         mSolarSystem.step(dt);
-
-        //mEarth.focusCamera(mCamera);
+        mSolarSystem.focusCamera(mCamera);
 
         mModelBatch.begin(mCamera);
         mModelBatch.render(mSkySphereModelInstance, mEnvironment);

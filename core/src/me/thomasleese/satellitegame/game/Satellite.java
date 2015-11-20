@@ -18,8 +18,10 @@ public class Satellite extends Body {
 
         Material material = new Material(ColorAttribute.createDiffuse(Color.GREEN));
 
+        final float diameter = 0.1f;
+
         ModelBuilder modelBuilder = new ModelBuilder();
-        mModel = modelBuilder.createSphere(0.1f, 0.1f, 0.1f, 8, 8, material,
+        mModel = modelBuilder.createSphere(diameter, diameter, diameter, 8, 8, material,
             VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
         mInstance = new ModelInstance(mModel);
     }
