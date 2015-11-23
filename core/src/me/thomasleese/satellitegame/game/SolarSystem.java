@@ -42,7 +42,7 @@ public class SolarSystem implements Disposable {
         mBodies.add(mMoon);
 
         for (int i = 0; i < 10; i++) {
-            mBodies.add(new Satellite(mEarth, 7f));
+            mBodies.add(new Satellite(mEarth, 6f));
         }
     }
 

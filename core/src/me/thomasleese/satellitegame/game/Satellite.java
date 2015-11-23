@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g3d.*;
 import com.badlogic.gdx.graphics.g3d.attributes.*;
 import com.badlogic.gdx.graphics.g3d.environment.*;
+import com.badlogic.gdx.graphics.g3d.loader.*;
 import com.badlogic.gdx.graphics.g3d.utils.*;
 import com.badlogic.gdx.math.*;
 
@@ -20,10 +21,11 @@ public class Satellite extends Body {
 
         final float diameter = 0.1f;
 
-        ModelBuilder modelBuilder = new ModelBuilder();
-        mModel = modelBuilder.createSphere(diameter, diameter, diameter, 8, 8, material,
-            VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
+        ObjLoader loader = new ObjLoader();
+        mModel = loader.loadModel(Gdx.files.internal("models/satellite.obj"));
         mInstance = new ModelInstance(mModel);
+
+        mInstance.transform.scale(0.05f, 0.05f, 0.05f);
     }
 
     @Override
